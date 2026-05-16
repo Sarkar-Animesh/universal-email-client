@@ -18,20 +18,8 @@ import type {
   UnifiedThread,
 } from "@/lib/types";
 
-const BASE = resolveBase(process.env.NEXT_PUBLIC_API_BASE_URL);
-
-function resolveBase(raw: string | undefined): string {
-  const value = (raw ?? "").trim() || "http://localhost:8000";
-  try {
-    return new URL(value).origin;
-  } catch {
-    throw new Error(
-      `NEXT_PUBLIC_API_BASE_URL is not a valid URL: ${JSON.stringify(value)}. ` +
-        `Set it in Vercel → Project Settings → Environment Variables to ` +
-        `something like https://your-api.vercel.app, then redeploy.`,
-    );
-  }
-}
+const BASE =
+  (process.env.NEXT_PUBLIC_API_BASE_URL ?? "").trim() || "http://localhost:8000";
 
 export class AuthExpired extends Error {
   constructor() {
@@ -56,7 +44,16 @@ type FetchOpts = {
 };
 
 async function call<T>(path: string, opts: FetchOpts = {}): Promise<T> {
-  const url = new URL(BASE + path);
+  let url: URL;
+  try {
+    url = new URL(BASE + path);
+  } catch {
+    throw new Error(
+      `NEXT_PUBLIC_API_BASE_URL is not a valid URL: ${JSON.stringify(BASE)}. ` +
+        `Set it in Vercel → Project Settings → Environment Variables to ` +
+        `https://your-api.vercel.app (full origin, no trailing slash), then redeploy.`,
+    );
+  }
   if (opts.query) {
     for (const [k, v] of Object.entries(opts.query)) {
       if (v !== undefined) url.searchParams.set(k, String(v));
