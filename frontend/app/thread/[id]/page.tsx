@@ -8,7 +8,7 @@ import { getDb } from "@/lib/db/schema";
 import { archiveThread, syncThread, trashThread } from "@/lib/sync";
 import { ai } from "@/lib/api/client";
 import { sanitizeMailHtml } from "@/lib/sanitize";
-import type { StoredAccount, UnifiedMessage } from "@/lib/types";
+import type { UnifiedMessage } from "@/lib/types";
 import {
   ArrowLeftIcon,
   ArchiveIcon,

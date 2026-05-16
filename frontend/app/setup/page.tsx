@@ -52,7 +52,7 @@ export default function SetupPage() {
           <div>
             <h1 className="text-2xl font-bold">Set a passphrase</h1>
             <p className="text-sm text-[hsl(var(--color-muted-fg))] mt-1 px-2">
-              Used to encrypt your account tokens on this device. There's no
+              Used to encrypt your account tokens on this device. There&apos;s no
               recovery — pick something long.
             </p>
           </div>
