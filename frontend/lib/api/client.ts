@@ -18,7 +18,20 @@ import type {
   UnifiedThread,
 } from "@/lib/types";
 
-const BASE = process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
+const BASE = resolveBase(process.env.NEXT_PUBLIC_API_BASE_URL);
+
+function resolveBase(raw: string | undefined): string {
+  const value = (raw ?? "").trim() || "http://localhost:8000";
+  try {
+    return new URL(value).origin;
+  } catch {
+    throw new Error(
+      `NEXT_PUBLIC_API_BASE_URL is not a valid URL: ${JSON.stringify(value)}. ` +
+        `Set it in Vercel → Project Settings → Environment Variables to ` +
+        `something like https://your-api.vercel.app, then redeploy.`,
+    );
+  }
+}
 
 export class AuthExpired extends Error {
   constructor() {

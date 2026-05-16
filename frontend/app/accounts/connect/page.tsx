@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { auth } from "@/lib/api/client";
 import {
+  AlertIcon,
   ArrowLeftIcon,
   ChevronRightIcon,
   GoogleIcon,
@@ -14,25 +15,38 @@ import {
 
 export default function ConnectAccountPage() {
   const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<string | null>(null);
 
   async function connectGmail() {
+    setErr(null);
     setBusy(true);
-    const redirect = `${window.location.origin}/auth/gmail/callback`;
-    const { auth_url, state, code_verifier } = await auth.gmailStart(redirect);
-    sessionStorage.setItem("gmail_oauth_state", state);
-    sessionStorage.setItem("gmail_oauth_verifier", code_verifier);
-    sessionStorage.setItem("gmail_oauth_redirect", redirect);
-    window.location.href = auth_url;
+    try {
+      const redirect = `${window.location.origin}/auth/gmail/callback`;
+      const { auth_url, state, code_verifier } = await auth.gmailStart(redirect);
+      sessionStorage.setItem("gmail_oauth_state", state);
+      sessionStorage.setItem("gmail_oauth_verifier", code_verifier);
+      sessionStorage.setItem("gmail_oauth_redirect", redirect);
+      window.location.href = auth_url;
+    } catch (e) {
+      setErr((e as Error).message);
+      setBusy(false);
+    }
   }
 
   async function connectMicrosoft() {
+    setErr(null);
     setBusy(true);
-    const redirect = `${window.location.origin}/auth/microsoft/callback`;
-    const { auth_url, state, code_verifier } = await auth.microsoftStart(redirect);
-    sessionStorage.setItem("microsoft_oauth_state", state);
-    sessionStorage.setItem("microsoft_oauth_verifier", code_verifier);
-    sessionStorage.setItem("microsoft_oauth_redirect", redirect);
-    window.location.href = auth_url;
+    try {
+      const redirect = `${window.location.origin}/auth/microsoft/callback`;
+      const { auth_url, state, code_verifier } = await auth.microsoftStart(redirect);
+      sessionStorage.setItem("microsoft_oauth_state", state);
+      sessionStorage.setItem("microsoft_oauth_verifier", code_verifier);
+      sessionStorage.setItem("microsoft_oauth_redirect", redirect);
+      window.location.href = auth_url;
+    } catch (e) {
+      setErr((e as Error).message);
+      setBusy(false);
+    }
   }
 
   return (
@@ -49,6 +63,16 @@ export default function ConnectAccountPage() {
       </header>
 
       <div className="p-6 mx-auto max-w-md space-y-5">
+        {err && (
+          <div
+            role="alert"
+            className="rounded-xl border border-[hsl(var(--color-danger)/0.3)] bg-[hsl(var(--color-danger-soft))] text-[hsl(var(--color-danger))] px-3 py-2 text-sm flex items-start gap-2"
+          >
+            <AlertIcon size={16} className="mt-0.5 shrink-0" />
+            <span className="flex-1 break-words">{err}</span>
+          </div>
+        )}
+
         <div className="card p-4 flex items-start gap-3 bg-[hsl(var(--color-success-soft))] border-[hsl(var(--color-success)/0.25)]">
           <span className="grid place-items-center w-9 h-9 rounded-xl bg-[hsl(var(--color-success))] text-white shrink-0">
             <LockIcon size={16} />
