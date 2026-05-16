@@ -1,0 +1,21 @@
+{
+  "name": "universal-email-client",
+  "displayName": "Universal Email Client Plugin",
+  "version": "0.1.0",
+  "description": "Skills, hooks, and sub-agent definitions for the universal email client repo. Loaded by Claude Code automatically when working in this workspace.",
+  "agents": [
+    "agents/provider-engineer.md",
+    "agents/ai-engineer.md",
+    "agents/pwa-engineer.md"
+  ],
+  "skills": [
+    "skills/email-mime/SKILL.md",
+    "skills/oauth-pkce/SKILL.md",
+    "skills/data-scientist/SKILL.md",
+    "skills/ui-developer/SKILL.md"
+  ],
+  "hooks": {
+    "PreToolUse": ["hooks/secret-scan.js"],
+    "PostToolUse": ["hooks/post-edit-format.js"]
+  }
+}

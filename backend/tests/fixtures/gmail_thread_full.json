@@ -1,0 +1,61 @@
+{
+  "id": "thread123",
+  "_account_id": "acc1",
+  "messages": [
+    {
+      "id": "m1",
+      "threadId": "thread123",
+      "labelIds": ["INBOX", "UNREAD", "IMPORTANT"],
+      "internalDate": "1715692800000",
+      "snippet": "Hey, can we sync on Q3 launch timing?",
+      "payload": {
+        "headers": [
+          { "name": "From", "value": "\"Sarah Lee\" <sarah@example.com>" },
+          { "name": "To", "value": "user@example.com" },
+          { "name": "Subject", "value": "Q3 launch sync" },
+          { "name": "Date", "value": "Wed, 14 May 2025 14:00:00 -0000" },
+          { "name": "Message-ID", "value": "<msg1@example.com>" }
+        ],
+        "mimeType": "multipart/alternative",
+        "parts": [
+          {
+            "mimeType": "text/plain",
+            "body": {
+              "size": 50,
+              "data": "SGV5LCBjYW4gd2Ugc3luYyBvbiBRMyBsYXVuY2ggdGltaW5nPw"
+            }
+          },
+          {
+            "mimeType": "text/html",
+            "body": {
+              "size": 80,
+              "data": "PHA-SGV5LCBjYW4gd2Ugc3luYyBvbiBRMyBsYXVuY2ggdGltaW5nPzwvcD4"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "m2",
+      "threadId": "thread123",
+      "labelIds": ["INBOX"],
+      "internalDate": "1715696400000",
+      "snippet": "Thursday 2pm works.",
+      "payload": {
+        "headers": [
+          { "name": "From", "value": "user@example.com" },
+          { "name": "To", "value": "\"Sarah Lee\" <sarah@example.com>" },
+          { "name": "Subject", "value": "Re: Q3 launch sync" },
+          { "name": "In-Reply-To", "value": "<msg1@example.com>" },
+          { "name": "References", "value": "<msg1@example.com>" },
+          { "name": "Message-ID", "value": "<msg2@example.com>" }
+        ],
+        "mimeType": "text/plain",
+        "body": {
+          "size": 20,
+          "data": "VGh1cnNkYXkgMnBtIHdvcmtzLg"
+        }
+      }
+    }
+  ]
+}
