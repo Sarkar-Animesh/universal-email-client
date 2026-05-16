@@ -75,15 +75,17 @@ const PRESETS: Preset[] = [
   },
 ];
 
+const DEFAULT_PRESET: Preset = PRESETS[0]!;
+
 export default function ConnectImapPage() {
   const router = useRouter();
-  const [preset, setPreset] = useState<Preset>(PRESETS[0]);
+  const [preset, setPreset] = useState<Preset>(DEFAULT_PRESET);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [host, setHost] = useState(PRESETS[0].host);
-  const [port, setPort] = useState(PRESETS[0].port);
-  const [smtpHost, setSmtpHost] = useState(PRESETS[0].smtp_host);
-  const [smtpPort, setSmtpPort] = useState(PRESETS[0].smtp_port);
+  const [host, setHost] = useState(DEFAULT_PRESET.host);
+  const [port, setPort] = useState(DEFAULT_PRESET.port);
+  const [smtpHost, setSmtpHost] = useState(DEFAULT_PRESET.smtp_host);
+  const [smtpPort, setSmtpPort] = useState(DEFAULT_PRESET.smtp_port);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [showAdvanced, setShowAdvanced] = useState(false);
@@ -93,7 +95,7 @@ export default function ConnectImapPage() {
   }, [router]);
 
   function applyPreset(id: string) {
-    const p = PRESETS.find((x) => x.id === id) ?? PRESETS[0];
+    const p = PRESETS.find((x) => x.id === id) ?? DEFAULT_PRESET;
     setPreset(p);
     setHost(p.host);
     setPort(p.port);

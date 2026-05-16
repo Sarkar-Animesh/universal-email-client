@@ -39,7 +39,7 @@ export default function InboxPage() {
             .reverse()
             .sortBy("last_message_date")
             .then((rows) => rows.slice(0, 100))
-        : Promise.resolve([]),
+        : Promise.resolve<UnifiedThread[]>([]),
     [activeAccountId],
   );
   const [syncing, setSyncing] = useState(false);

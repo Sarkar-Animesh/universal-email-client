@@ -8,6 +8,7 @@
  */
 
 import type {
+  EmailAddress,
   ProviderId,
   ThreadDetail,
   ThreadListPage,
@@ -177,9 +178,9 @@ export const mail = {
     token: string,
     body: {
       account_id: string;
-      to: { address: string; name?: string }[];
-      cc?: { address: string; name?: string }[];
-      bcc?: { address: string; name?: string }[];
+      to: EmailAddress[];
+      cc?: EmailAddress[];
+      bcc?: EmailAddress[];
       subject: string;
       body_html?: string;
       body_text?: string;
